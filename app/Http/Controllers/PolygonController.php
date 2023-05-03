@@ -10,23 +10,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PolygonController extends Controller
 {
 
-    public function someFunction(Request $request)
+    public function checkPoints(Request $request)
     {
-
-        $user = Auth::user();
-
         $lat = $request->input('lat');
         $lng = $request->input('lng');
+        $result = $lat && $lng;
 
-
-
-        // Return a response
-        return response()->json([
-            'message' => 'Received latitude and longitude data',
-            'lat' => $lat,
-            'lng' => $lng,
-            'user' => $user
-        ]);
+        return response()->json($result);
     }
 
 }

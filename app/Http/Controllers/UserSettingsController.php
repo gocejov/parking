@@ -3,26 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserSettings;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UserSettingsController extends Controller
 {
-    public function index(Request $request): Mixed
-    {
-        $user = auth()->user();
-        // $userId = auth()->user()->id;
-        $userId = $user->id;
-
-        $userSettings = UserSettings::where('user_id', $userId)->get();
-
-        if ($request->expectsJson()) {
-            return response()->json([
-                'userSettings' => $userSettings
-            ]);
-        }
-        return view('user-settings.index', compact('userSettings',));
-    }
+//    public function getUserSettings(Request $request): Mixed
+//    {
+//
+//        $user = auth()->user();
+//        // $userId = auth()->user()->id;
+//        $userId = $user->id;
+//
+//        $userSettings = UserSettings::where('user_id', $userId)->get();
+//
+//        if ($request->expectsJson()) {
+//            return response()->json([
+//                'userSettings' => $userSettings
+//            ]);
+//        }
+//        return view('pages.dashboard', ['userSettings' => $userSettings]);
+//
+//    }
 
     public function store(Request $request): Mixed
     {
@@ -44,9 +47,9 @@ class UserSettingsController extends Controller
         return view('user-settings.create');
     }
 
-    public function edit(UserSettings $settings): View
+    public function edit(UserSettings $settings)
     {
-        return view('user-settings.edit', compact('settings'));
+        return view('pages.edit', ['settings' => $settings]);
     }
 
     public function update(Request $request, UserSettings $settings): Mixed
@@ -60,7 +63,7 @@ class UserSettingsController extends Controller
         if ($request->expectsJson()) {
             return response()->json($settings);
         }
-        return redirect()->route('settings.index')->with('success', 'Settings updated successfully');
+        return redirect()->route('home');
     }
 
     public function destroy(Request $request, UserSettings $settings): Mixed
