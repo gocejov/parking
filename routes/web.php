@@ -49,8 +49,8 @@ Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('
 
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/edit-{settings}', [UserSettingsController::class, 'edit'])->name('edit')->middleware('auth');
-Route::put('/edit-{settings}', [UserSettingsController::class, 'update'])->name('update')->middleware('auth');
+Route::get('/edit/{settings}', [UserSettingsController::class, 'edit'])->name('edit')->middleware('auth');
+Route::put('/edit/{settings}', [UserSettingsController::class, 'update'])->name('update')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
