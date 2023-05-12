@@ -22,6 +22,7 @@ use App\Http\Controllers\ChangePassword;
 |
 */
 
+
 Route::middleware('auth')->group(function () {
 
 
@@ -47,7 +48,9 @@ Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('gues
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
-
+Route::get('/maps', function () {
+    return view('pages.maps');
+});
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/edit/{settings}', [UserSettingsController::class, 'edit'])->name('edit')->middleware('auth');
 Route::put('/edit/{settings}', [UserSettingsController::class, 'update'])->name('update')->middleware('auth');
