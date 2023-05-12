@@ -10,7 +10,7 @@
 </body>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAefChyue0fuj9bFgwMHU54_oeKay17_Z4&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=APIKEY&callback=initMap"></script>
 
 <script>
     function initMap() {
