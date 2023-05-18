@@ -25,18 +25,40 @@ class PolygonController extends Controller
         return response()->json(['result' => false]);
     }
 
-    private function checkPointInPolygon(array $point, array $polygon): bool
+    public function storePolygon(Request $request): JsonResponse
     {
+        // Validate the polygon coordinates
+        $request->validate([
+            'polygonCoordinates' => 'required|array',
+            'polygonCoordinates.*' => 'required|array',
+            'polygonCoordinates.*.*' => 'required|numeric',
+        ]);
+
+        // Extract the polygon coordinates from the request
+        $polygonCoordinates = $request->input('polygonCoordinates');
+
+        // Save the polygon data
+        $polygon = new Polygon();
+        $polygon->vertices = json_encode($polygonCoordinates);
+        $polygon->save();
+
+
+        return response()->json(['message' => 'Polygon saved successfully']);
+    }
+
+    private function checkPointInPolygon(array $point, $polygon): bool
+    {
+        $polygon = json_decode($polygon, true);
+
         $polySides = count($polygon);
         $j = $polySides - 1;
         $oddNodes = false;
-
         for ($i = 0; $i < $polySides; $i++) {
-            if (($polygon[$i]['y'] < $point['y'] && $polygon[$j]['y'] >= $point['y'] ||
-                    $polygon[$j]['y'] < $point['y'] && $polygon[$i]['y'] >= $point['y']) &&
-                ($polygon[$i]['x'] <= $point['x'] || $polygon[$j]['x'] <= $point['x'])) {
-                if ($polygon[$i]['x'] + ($point['y'] - $polygon[$i]['y']) /
-                    ($polygon[$j]['y'] - $polygon[$i]['y']) * ($polygon[$j]['x'] - $polygon[$i]['x']) < $point['x']) {
+            if (($polygon[$i][1] < $point['y'] && $polygon[$j][1] >= $point['y'] ||
+                    $polygon[$j][1] < $point['y'] && $polygon[$i][1] >= $point['y']) &&
+                ($polygon[$i][0] <= $point['x'] || $polygon[$j][0] <= $point['x'])) {
+                if ($polygon[$i][0] + ($point['y'] - $polygon[$i][1]) /
+                    ($polygon[$j][1] - $polygon[$i][1]) * ($polygon[$j][0] - $polygon[$i][0]) < $point['x']) {
                     $oddNodes = !$oddNodes;
                 }
             }
@@ -44,6 +66,4 @@ class PolygonController extends Controller
         }
         return $oddNodes;
     }
-
-
 }

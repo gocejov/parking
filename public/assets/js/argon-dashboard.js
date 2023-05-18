@@ -362,13 +362,13 @@ function navbarBlurOnScroll(id) {
         if (content.scrollTop > scrollDistance) {
           blurNavbar();
         } else {
-          transparentNavbar();
+            transparentNavbar();
         }
       }, 10));
     } else {
-      content.addEventListener('ps-scroll-y', debounce(function () {
-          transparentNavbar();
-      }, 10));
+        content.addEventListener('ps-scroll-y', debounce(function () {
+            transparentNavbar();
+        }, 10));
     }
   }
 
@@ -410,23 +410,23 @@ function navbarBlurOnScroll(id) {
             ;
 
 // Toggle Sidenav
-var iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
-var iconSidenav = document.getElementById('iconSidenav');
-var sidenav = document.getElementById('sidenav-main');
-var body = document.getElementsByTagName('body')[0];
-var className = 'g-sidenav-pinned';
-if (iconNavbarSidenav) {
-  iconNavbarSidenav.addEventListener("click", toggleSidenav);
-}
+            var iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+            var iconSidenav = document.getElementById('iconSidenav');
+            var sidenav = document.getElementById('sidenav-main');
+            var body = document.getElementsByTagName('body')[0];
+            var className = 'g-sidenav-pinned';
+            if (iconNavbarSidenav) {
+                iconNavbarSidenav.addEventListener("click", toggleSidenav);
+            }
 if (iconSidenav) {
   iconSidenav.addEventListener("click", toggleSidenav);
 }
 function toggleSidenav() {
   if (body.classList.contains(className)) {
     body.classList.remove(className);
-    setTimeout(function () {
-        sidenav.classList.remove('bg-white');
-    }, 100);
+      setTimeout(function () {
+          sidenav.classList.remove('bg-white');
+      }, 100);
       sidenav.classList.remove('bg-transparent');
   } else {
       body.classList.add(className);
@@ -466,16 +466,16 @@ function toggleSidenav() {
             window.addEventListener("load", sidenavTypeOnResize);
 
             function sidenavTypeOnResize() {
-  var elements = document.querySelectorAll('[onclick="sidebarType(this)"]');
-  if (window.innerWidth < 1200) {
-    elements.forEach(function (el) {
-      el.classList.add('disabled');
-    });
-  } else {
-    elements.forEach(function (el) {
-      el.classList.remove('disabled');
-    });
-  }
+                var elements = document.querySelectorAll('[onclick="sidebarType(this)"]');
+                if (window.innerWidth < 1200) {
+                    elements.forEach(function (el) {
+                        el.classList.add('disabled');
+                    });
+                } else {
+                    elements.forEach(function (el) {
+                        el.classList.remove('disabled');
+                    });
+                }
 }
 
 // Tabs navigation
@@ -542,16 +542,16 @@ total.forEach(function (item, i) {
                         if (item.classList.contains('flex-column')) {
                             for (var j = 1; j <= nodes.indexOf(li); j++) {
                                 sum += item.querySelector('li:nth-child(' + j + ')').offsetHeight;
-        }
-        moving_div.style.transform = 'translate3d(0px,' + sum + 'px, 0px)';
-        moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
-        moving_div.style.height = item.querySelector('li:nth-child(' + j + ')').offsetHeight;
-      } else {
-        for (var j = 1; j <= nodes.indexOf(li); j++) {
-          sum += item.querySelector('li:nth-child(' + j + ')').offsetWidth;
-        }
-        moving_div.style.transform = 'translate3d(' + sum + 'px, 0px, 0px)';
-        moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
+                            }
+                            moving_div.style.transform = 'translate3d(0px,' + sum + 'px, 0px)';
+                            moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
+                            moving_div.style.height = item.querySelector('li:nth-child(' + j + ')').offsetHeight;
+                        } else {
+                            for (var j = 1; j <= nodes.indexOf(li); j++) {
+                                sum += item.querySelector('li:nth-child(' + j + ')').offsetWidth;
+                            }
+                            moving_div.style.transform = 'translate3d(' + sum + 'px, 0px, 0px)';
+                            moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
       }
     }
   });
@@ -596,16 +596,16 @@ total.forEach(function (item, i) {
                 var btn_text_dark = document.querySelectorAll('.btn.btn-link.text-dark, .btn .ni.text-dark');
                 var btn_text_white = document.querySelectorAll('.btn.btn-link.text-white, .btn .ni.text-white');
                 var card_border = document.querySelectorAll('.card.border');
-  var card_border_dark = document.querySelectorAll('.card.border.border-dark');
-  var svg = document.querySelectorAll('g');
-  var navbarBrand = document.querySelector('.navbar-brand-img');
-  var navbarBrandImg = navbarBrand.src;
-  var navLinks = document.querySelectorAll('.navbar-main .nav-link, .navbar-main .breadcrumb-item, .navbar-main .breadcrumb-item a, .navbar-main h6');
-  var cardNavLinksIcons = document.querySelectorAll('.card .nav .nav-link i');
-  var cardNavSpan = document.querySelectorAll('.card .nav .nav-link span');
-  if (!el.getAttribute("checked")) {
-    body.classList.add('dark-version');
-    if (navbarBrandImg.includes('logo-ct-dark.png')) {
+                var card_border_dark = document.querySelectorAll('.card.border.border-dark');
+                var svg = document.querySelectorAll('g');
+                var navbarBrand = document.querySelector('.navbar-brand-img');
+                var navbarBrandImg = navbarBrand.src;
+                var navLinks = document.querySelectorAll('.navbar-main .nav-link, .navbar-main .breadcrumb-item, .navbar-main .breadcrumb-item a, .navbar-main h6');
+                var cardNavLinksIcons = document.querySelectorAll('.card .nav .nav-link i');
+                var cardNavSpan = document.querySelectorAll('.card .nav .nav-link span');
+                if (!el.getAttribute("checked")) {
+                    body.classList.add('dark-version');
+                    if (navbarBrandImg.includes('logo-ct-dark.png')) {
       var navbarBrandImgNew = navbarBrandImg.replace("logo-ct-dark", "logo-ct");
       navbarBrand.src = navbarBrandImgNew;
     }
@@ -747,27 +747,27 @@ total.forEach(function (item, i) {
       }
     }
     for (var i = 0; i < bg_gray_600.length; i++) {
-      if (bg_gray_600[i].classList.contains('bg-gray-600')) {
-        bg_gray_600[i].classList.remove('bg-gray-600');
-        bg_gray_600[i].classList.add('bg-gray-100');
-      }
-    }
-    for (var i = 0; i < svg.length; i++) {
-        if (svg[i].hasAttribute('fill')) {
-            svg[i].setAttribute('fill', '#252f40');
+        if (bg_gray_600[i].classList.contains('bg-gray-600')) {
+            bg_gray_600[i].classList.remove('bg-gray-600');
+            bg_gray_600[i].classList.add('bg-gray-100');
         }
     }
-      for (var i = 0; i < btn_text_white.length; i++) {
-          if (!btn_text_white[i].closest('.card.bg-gradient-dark')) {
-              btn_text_white[i].classList.remove('text-white');
-              btn_text_white[i].classList.add('text-dark');
-          }
-      }
-      for (var i = 0; i < card_border_dark.length; i++) {
-          card_border_dark[i].classList.remove('border-dark');
-      }
-      el.removeAttribute("checked");
-  }
+                    for (var i = 0; i < svg.length; i++) {
+                        if (svg[i].hasAttribute('fill')) {
+                            svg[i].setAttribute('fill', '#252f40');
+                        }
+                    }
+                    for (var i = 0; i < btn_text_white.length; i++) {
+                        if (!btn_text_white[i].closest('.card.bg-gradient-dark')) {
+                            btn_text_white[i].classList.remove('text-white');
+                            btn_text_white[i].classList.add('text-dark');
+                        }
+                    }
+                    for (var i = 0; i < card_border_dark.length; i++) {
+                        card_border_dark[i].classList.remove('border-dark');
+                    }
+                    el.removeAttribute("checked");
+                }
             };
 
             /***/
@@ -2874,14 +2874,14 @@ total.forEach(function (item, i) {
              */
             ;(function () {
 
-  /** Used as a safe reference for `undefined` in pre-ES5 environments. */
-  var undefined;
+                /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+                var undefined;
 
-  /** Used as the semantic version number. */
-  var VERSION = '4.17.21';
+                /** Used as the semantic version number. */
+                var VERSION = '4.17.21';
 
-  /** Used as the size to enable large array optimizations. */
-  var LARGE_ARRAY_SIZE = 200;
+                /** Used as the size to enable large array optimizations. */
+                var LARGE_ARRAY_SIZE = 200;
 
   /** Error message constants. */
   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
@@ -24740,18 +24740,30 @@ PerfectScrollbar.prototype.destroy = function destroy () {
                 deferred[i] = [chunkIds, fn, priority];
                 /******/
                 return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
+                /******/
+            }
+            /******/
+            var notFulfilled = Infinity;
+            /******/
+            for (var i = 0; i < deferred.length; i++) {
+                /******/
+                var [chunkIds, fn, priority] = deferred[i];
+                /******/
+                var fulfilled = true;
+                /******/
+                for (var j = 0; j < chunkIds.length; j++) {
+                    /******/
+                    if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+                        /******/
+                        chunkIds.splice(j--, 1);
+                        /******/
+                    } else {
+                        /******/
+                        fulfilled = false;
+                        /******/
+                        if (priority < notFulfilled) notFulfilled = priority;
+                        /******/
+                    }
                     /******/
                 }
                 /******/
@@ -24904,10 +24916,14 @@ PerfectScrollbar.prototype.destroy = function destroy () {
                     if (__webpack_require__.o(moreModules, moduleId)) {
                         /******/
                         __webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
+                        /******/
+                    }
+                    /******/
+                }
+                /******/
+                if (runtime) var result = runtime(__webpack_require__);
+                /******/
+            }
             /******/
             if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
             /******/

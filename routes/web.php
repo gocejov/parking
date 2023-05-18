@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PolygonController;
 use App\Http\Controllers\UserSettingsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -51,6 +52,8 @@ Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('
 Route::get('/maps', function () {
     return view('pages.maps');
 });
+Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
+
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/edit/{settings}', [UserSettingsController::class, 'edit'])->name('edit')->middleware('auth');
 Route::put('/edit/{settings}', [UserSettingsController::class, 'update'])->name('update')->middleware('auth');

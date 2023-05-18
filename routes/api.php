@@ -34,6 +34,7 @@ Route::middleware('auth:api')->group(function (){
 
     // Polygon Routes
     Route::post('/check-points', [PolygonController::class, 'isPointInPolygon']);
+    Route::post('/save-polygon', [PolygonController::class, 'storePolygon']);
 
 
 });
