@@ -49,9 +49,9 @@ Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('gues
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
-Route::get('/maps', function () {
-    return view('pages.maps');
-});
+// Polygon
+Route::get('/map', [PolygonController::class, 'showMap'])->name('map');
+Route::get('/load-polygons', [PolygonController::class, 'loadPolygons'])->name('load.polygons');
 Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');

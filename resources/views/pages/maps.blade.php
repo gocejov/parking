@@ -26,6 +26,7 @@
     let drawingManager;
     let map;
     let polygonCoordinates = [];
+    let polygonName = "";
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"),
@@ -55,9 +56,14 @@
 
         drawingManager.setMap(map);
 
+        loadPolygons();
+
         google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
             if (event.type === google.maps.drawing.OverlayType.POLYGON) {
                 const polygon = event.overlay;
+
+                polygonName = prompt('Enter polygon name');
+
                 polygonCoordinates = polygon.getPath().getArray().map(function (point) {
                     return [point.lat(), point.lng()];
                 });
@@ -77,24 +83,26 @@
         });
 
         $("#saveButton").click(function () {
-            if (polygonCoordinates.length > 0) {
-                savePolygon(polygonCoordinates);
+            if (polygonCoordinates.length > 0 && polygonName !== "") {
+                savePolygon(polygonName, polygonCoordinates);
             } else {
-                console.log("No polygon has been drawn.");
+                alert("No polygon has been drawn or name is missing");
             }
         });
     }
 
-    const savePolygon = function (polygonCoordinates) {
+    const savePolygon = function (name, polygonCoordinates) {
         $.ajax({
             url: "{{ route('save.polygon') }}",
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
+                name: name,
                 polygonCoordinates: polygonCoordinates
             },
             success: function (response) {
                 console.log(response.message);
+                loadPolygons();
 
             },
             error: function (xhr) {
@@ -103,6 +111,37 @@
             }
         });
     }
+    const loadPolygons = function () {
+        $.ajax({
+            url: "{{ route('load.polygons') }}",
+            type: "GET",
+            success: function (response) {
+                const polygons = response.data;
+                polygons.forEach(function (polygon) {
+                    const polygonCoordinates = polygon.vertices;
+                    const coordinates = polygonCoordinates.map(function (coordinate) {
+                        return {lat: parseFloat(coordinate[0]), lng: parseFloat(coordinate[1])};
+                    });
+
+                    const loadedPolygon = new google.maps.Polygon({
+                        paths: coordinates,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#FF0000",
+                        fillOpacity: 0.35,
+                        editable: true,
+                        draggable: true,
+                    });
+                    loadedPolygon.setMap(map);
+                });
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+            },
+        });
+    };
+
 </script>
 </body>
 </html>

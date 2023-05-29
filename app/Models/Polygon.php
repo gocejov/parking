@@ -9,7 +9,7 @@ class Polygon extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vertices'];
+    protected $fillable = ['name', 'vertices'];
 
     // Deserialize the vertices attribute from a JSON string to an array when the model is retrieved from the DB
     public function getVerticesAttribute($value)

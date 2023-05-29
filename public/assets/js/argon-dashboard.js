@@ -418,23 +418,24 @@ function navbarBlurOnScroll(id) {
             if (iconNavbarSidenav) {
                 iconNavbarSidenav.addEventListener("click", toggleSidenav);
             }
-if (iconSidenav) {
-  iconSidenav.addEventListener("click", toggleSidenav);
-}
-function toggleSidenav() {
-  if (body.classList.contains(className)) {
-    body.classList.remove(className);
-      setTimeout(function () {
-          sidenav.classList.remove('bg-white');
-      }, 100);
-      sidenav.classList.remove('bg-transparent');
-  } else {
-      body.classList.add(className);
-      sidenav.classList.add('bg-white');
-      sidenav.classList.remove('bg-transparent');
-      iconSidenav.classList.remove('d-none');
-  }
-}
+            if (iconSidenav) {
+                iconSidenav.addEventListener("click", toggleSidenav);
+            }
+
+            function toggleSidenav() {
+                if (body.classList.contains(className)) {
+                    body.classList.remove(className);
+                    setTimeout(function () {
+                        sidenav.classList.remove('bg-white');
+                    }, 100);
+                    sidenav.classList.remove('bg-transparent');
+                } else {
+                    body.classList.add(className);
+                    sidenav.classList.add('bg-white');
+                    sidenav.classList.remove('bg-transparent');
+                    iconSidenav.classList.remove('d-none');
+                }
+            }
 
             var html = document.getElementsByTagName('html')[0];
             html.addEventListener("click", function (e) {
@@ -476,16 +477,16 @@ function toggleSidenav() {
                         el.classList.remove('disabled');
                     });
                 }
-}
+            }
 
 // Tabs navigation
 
-var total = document.querySelectorAll('.nav-pills');
-total.forEach(function (item, i) {
-  var moving_div = document.createElement('div');
-  var first_li = item.querySelector('li:first-child .nav-link');
-  var tab = first_li.cloneNode();
-  tab.innerHTML = "-";
+            var total = document.querySelectorAll('.nav-pills');
+            total.forEach(function (item, i) {
+                var moving_div = document.createElement('div');
+                var first_li = item.querySelector('li:first-child .nav-link');
+                var tab = first_li.cloneNode();
+                tab.innerHTML = "-";
   moving_div.classList.add('moving-tab', 'position-absolute', 'nav-link');
   moving_div.appendChild(tab);
   item.appendChild(moving_div);
@@ -552,22 +553,22 @@ total.forEach(function (item, i) {
                             }
                             moving_div.style.transform = 'translate3d(' + sum + 'px, 0px, 0px)';
                             moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
-      }
-    }
-  });
-  if (window.innerWidth < 991) {
-    total.forEach(function (item, i) {
-      if (!item.classList.contains('flex-column')) {
-          item.classList.add('flex-column', 'on-resize');
-      }
-    });
-  } else {
-      total.forEach(function (item, i) {
-          if (item.classList.contains('on-resize')) {
-              item.classList.remove('flex-column', 'on-resize');
-          }
-      });
-  }
+                        }
+                    }
+                });
+                if (window.innerWidth < 991) {
+                    total.forEach(function (item, i) {
+                        if (!item.classList.contains('flex-column')) {
+                            item.classList.add('flex-column', 'on-resize');
+                        }
+                    });
+                } else {
+                    total.forEach(function (item, i) {
+                        if (item.classList.contains('on-resize')) {
+                            item.classList.remove('flex-column', 'on-resize');
+                        }
+                    });
+                }
             });
 
             function getEventTarget(e) {
@@ -606,16 +607,16 @@ total.forEach(function (item, i) {
                 if (!el.getAttribute("checked")) {
                     body.classList.add('dark-version');
                     if (navbarBrandImg.includes('logo-ct-dark.png')) {
-      var navbarBrandImgNew = navbarBrandImg.replace("logo-ct-dark", "logo-ct");
-      navbarBrand.src = navbarBrandImgNew;
-    }
-    for (var i = 0; i < cardNavLinksIcons.length; i++) {
-      if (cardNavLinksIcons[i].classList.contains('text-dark')) {
-        cardNavLinksIcons[i].classList.remove('text-dark');
-        cardNavLinksIcons[i].classList.add('text-white');
-      }
-    }
-    for (var i = 0; i < cardNavSpan.length; i++) {
+                        var navbarBrandImgNew = navbarBrandImg.replace("logo-ct-dark", "logo-ct");
+                        navbarBrand.src = navbarBrandImgNew;
+                    }
+                    for (var i = 0; i < cardNavLinksIcons.length; i++) {
+                        if (cardNavLinksIcons[i].classList.contains('text-dark')) {
+                            cardNavLinksIcons[i].classList.remove('text-dark');
+                            cardNavLinksIcons[i].classList.add('text-white');
+                        }
+                    }
+                    for (var i = 0; i < cardNavSpan.length; i++) {
       if (cardNavSpan[i].classList.contains('text-sm')) {
         cardNavSpan[i].classList.add('text-white');
       }
@@ -742,16 +743,16 @@ total.forEach(function (item, i) {
     for (var i = 0; i < secondary.length; i++) {
       if (secondary[i].classList.contains('text-white')) {
         secondary[i].classList.remove('text-white');
-        secondary[i].classList.remove('opacity-8');
-        secondary[i].classList.add('text-dark');
+          secondary[i].classList.remove('opacity-8');
+          secondary[i].classList.add('text-dark');
       }
     }
-    for (var i = 0; i < bg_gray_600.length; i++) {
-        if (bg_gray_600[i].classList.contains('bg-gray-600')) {
-            bg_gray_600[i].classList.remove('bg-gray-600');
-            bg_gray_600[i].classList.add('bg-gray-100');
-        }
-    }
+                    for (var i = 0; i < bg_gray_600.length; i++) {
+                        if (bg_gray_600[i].classList.contains('bg-gray-600')) {
+                            bg_gray_600[i].classList.remove('bg-gray-600');
+                            bg_gray_600[i].classList.add('bg-gray-100');
+                        }
+                    }
                     for (var i = 0; i < svg.length; i++) {
                         if (svg[i].hasAttribute('fill')) {
                             svg[i].setAttribute('fill', '#252f40');
@@ -2883,15 +2884,15 @@ total.forEach(function (item, i) {
                 /** Used as the size to enable large array optimizations. */
                 var LARGE_ARRAY_SIZE = 200;
 
-  /** Error message constants. */
-  var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
-      FUNC_ERROR_TEXT = 'Expected a function',
-      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
+                /** Error message constants. */
+                var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
+                    FUNC_ERROR_TEXT = 'Expected a function',
+                    INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
 
-  /** Used to stand-in for `undefined` hash values. */
-  var HASH_UNDEFINED = '__lodash_hash_undefined__';
+                /** Used to stand-in for `undefined` hash values. */
+                var HASH_UNDEFINED = '__lodash_hash_undefined__';
 
-  /** Used as the maximum memoize cache size. */
+                /** Used as the maximum memoize cache size. */
   var MAX_MEMOIZE_SIZE = 500;
 
   /** Used as the internal argument placeholder. */

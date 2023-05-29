@@ -2,13 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PolygonResource;
 use Illuminate\Http\Request;
 use App\Models\Polygon;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Contracts\View\View;
 
 
 class PolygonController extends Controller
 {
+
+    public function showMap(): View
+    {
+        return view('pages.maps');
+    }
+
+    public function loadPolygons(): AnonymousResourceCollection
+    {
+        $polygons = Polygon::all();
+
+        return PolygonResource::collection($polygons);
+    }
 
 
     public function isPointInPolygon(Request $request): JsonResponse
@@ -27,21 +42,20 @@ class PolygonController extends Controller
 
     public function storePolygon(Request $request): JsonResponse
     {
-        // Validate the polygon coordinates
         $request->validate([
             'polygonCoordinates' => 'required|array',
             'polygonCoordinates.*' => 'required|array',
             'polygonCoordinates.*.*' => 'required|numeric',
+            'name' => 'required|string'
         ]);
 
-        // Extract the polygon coordinates from the request
+        $name = $request->input('name');
         $polygonCoordinates = $request->input('polygonCoordinates');
 
-        // Save the polygon data
         $polygon = new Polygon();
+        $polygon->name = $name;
         $polygon->vertices = json_encode($polygonCoordinates);
         $polygon->save();
-
 
         return response()->json(['message' => 'Polygon saved successfully']);
     }
