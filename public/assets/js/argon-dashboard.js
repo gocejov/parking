@@ -487,16 +487,16 @@ function navbarBlurOnScroll(id) {
                 var first_li = item.querySelector('li:first-child .nav-link');
                 var tab = first_li.cloneNode();
                 tab.innerHTML = "-";
-  moving_div.classList.add('moving-tab', 'position-absolute', 'nav-link');
-  moving_div.appendChild(tab);
-  item.appendChild(moving_div);
-  var list_length = item.getElementsByTagName("li").length;
-  moving_div.style.padding = '0px';
-  moving_div.style.width = item.querySelector('li:nth-child(1)').offsetWidth + 'px';
-  moving_div.style.transform = 'translate3d(0px, 0px, 0px)';
-  moving_div.style.transition = '.5s ease';
-  item.onmouseover = function (event) {
-    var target = getEventTarget(event);
+                moving_div.classList.add('moving-tab', 'position-absolute', 'nav-link');
+                moving_div.appendChild(tab);
+                item.appendChild(moving_div);
+                var list_length = item.getElementsByTagName("li").length;
+                moving_div.style.padding = '0px';
+                moving_div.style.width = item.querySelector('li:nth-child(1)').offsetWidth + 'px';
+                moving_div.style.transform = 'translate3d(0px, 0px, 0px)';
+                moving_div.style.transition = '.5s ease';
+                item.onmouseover = function (event) {
+                    var target = getEventTarget(event);
     var li = target.closest('li'); // get reference
     if (li) {
       var nodes = Array.from(li.closest('ul').children); // get array
@@ -519,8 +519,8 @@ function navbarBlurOnScroll(id) {
         }
       };
     }
-  };
-});
+                };
+            });
 
 // Tabs navigation resize
 
@@ -617,16 +617,16 @@ function navbarBlurOnScroll(id) {
                         }
                     }
                     for (var i = 0; i < cardNavSpan.length; i++) {
-      if (cardNavSpan[i].classList.contains('text-sm')) {
-        cardNavSpan[i].classList.add('text-white');
-      }
-    }
-    for (var i = 0; i < hr.length; i++) {
-      if (hr[i].classList.contains('dark')) {
-        hr[i].classList.remove('dark');
-        hr[i].classList.add('light');
-      }
-    }
+                        if (cardNavSpan[i].classList.contains('text-sm')) {
+                            cardNavSpan[i].classList.add('text-white');
+                        }
+                    }
+                    for (var i = 0; i < hr.length; i++) {
+                        if (hr[i].classList.contains('dark')) {
+                            hr[i].classList.remove('dark');
+                            hr[i].classList.add('light');
+                        }
+                    }
     for (var i = 0; i < hr_card.length; i++) {
       if (hr_card[i].classList.contains('dark')) {
         hr_card[i].classList.remove('dark');
@@ -737,16 +737,16 @@ function navbarBlurOnScroll(id) {
     for (var i = 0; i < text_strong_white.length; i++) {
       if (text_strong_white[i].classList.contains('text-white')) {
         text_strong_white[i].classList.remove('text-white');
-        text_strong_white[i].classList.add('text-dark');
+          text_strong_white[i].classList.add('text-dark');
       }
     }
-    for (var i = 0; i < secondary.length; i++) {
-      if (secondary[i].classList.contains('text-white')) {
-        secondary[i].classList.remove('text-white');
-          secondary[i].classList.remove('opacity-8');
-          secondary[i].classList.add('text-dark');
-      }
-    }
+                    for (var i = 0; i < secondary.length; i++) {
+                        if (secondary[i].classList.contains('text-white')) {
+                            secondary[i].classList.remove('text-white');
+                            secondary[i].classList.remove('opacity-8');
+                            secondary[i].classList.add('text-dark');
+                        }
+                    }
                     for (var i = 0; i < bg_gray_600.length; i++) {
                         if (bg_gray_600[i].classList.contains('bg-gray-600')) {
                             bg_gray_600[i].classList.remove('bg-gray-600');
@@ -2893,14 +2893,14 @@ function navbarBlurOnScroll(id) {
                 var HASH_UNDEFINED = '__lodash_hash_undefined__';
 
                 /** Used as the maximum memoize cache size. */
-  var MAX_MEMOIZE_SIZE = 500;
+                var MAX_MEMOIZE_SIZE = 500;
 
-  /** Used as the internal argument placeholder. */
-  var PLACEHOLDER = '__lodash_placeholder__';
+                /** Used as the internal argument placeholder. */
+                var PLACEHOLDER = '__lodash_placeholder__';
 
-  /** Used to compose bitmasks for cloning. */
-  var CLONE_DEEP_FLAG = 1,
-      CLONE_FLAT_FLAG = 2,
+                /** Used to compose bitmasks for cloning. */
+                var CLONE_DEEP_FLAG = 1,
+                    CLONE_FLAT_FLAG = 2,
       CLONE_SYMBOLS_FLAG = 4;
 
   /** Used to compose bitmasks for value comparisons. */
