@@ -53,6 +53,7 @@ Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('
 Route::get('/map', [PolygonController::class, 'showMap'])->name('map');
 Route::get('/load-polygons', [PolygonController::class, 'loadPolygons'])->name('load.polygons');
 Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
+Route::post('/delete-polygon', [PolygonController::class, 'deletePolygon'])->name('delete.polygon');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/edit/{settings}', [UserSettingsController::class, 'edit'])->name('edit')->middleware('auth');

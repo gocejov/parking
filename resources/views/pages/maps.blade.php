@@ -4,7 +4,7 @@
     <title>Maps</title>
     <style>
         #map {
-            height: 90%;
+            height: 80%;
             width: 100%;
         }
 
@@ -15,11 +15,17 @@
 </head>
 <body>
 <div id="map"></div>
-<button id="saveButton">Save</button>
+
+<form id="polygonForm">
+    <label for="name">Polygon Name:</label>
+    <input type="text" id="name" name="name" required>
+    <button type="button" id="saveButton">Save</button>
+    <button type="button" id="deleteButton">Delete</button>
+</form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=drawing&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=&libraries=drawing&callback=initMap"></script>
 
 <script>
 
@@ -27,14 +33,14 @@
     let map;
     let polygonCoordinates = [];
     let polygonName = "";
+    let selectedPolygon = null;
 
     function initMap() {
-        map = new google.maps.Map(document.getElementById("map"),
-            {
-                zoom: 17,
-                center: {lat: 42.00027542370965, lng: 21.41494029516333},
-                mapTypeId: "terrain",
-            });
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 17,
+            center: {lat: 42.00027542370965, lng: 21.41494029516333},
+            mapTypeId: "terrain",
+        });
 
         drawingManager = new google.maps.drawing.DrawingManager({
             drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -58,11 +64,9 @@
 
         loadPolygons();
 
-        google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+        google.maps.event.addListener(drawingManager, "overlaycomplete", function (event) {
             if (event.type === google.maps.drawing.OverlayType.POLYGON) {
                 const polygon = event.overlay;
-
-                polygonName = prompt('Enter polygon name');
 
                 polygonCoordinates = polygon.getPath().getArray().map(function (point) {
                     return [point.lat(), point.lng()];
@@ -82,35 +86,70 @@
             }
         });
 
-        $("#saveButton").click(function () {
-            if (polygonCoordinates.length > 0 && polygonName !== "") {
-                savePolygon(polygonName, polygonCoordinates);
+        $("#deleteButton").click(function () {
+            if (selectedPolygon) {
+                const polygonName = selectedPolygon.name;
+                deletePolygon(polygonName);
             } else {
-                alert("No polygon has been drawn or name is missing");
+                alert("No polygon is selected to delete");
             }
         });
     }
 
-    const savePolygon = function (name, polygonCoordinates) {
-        $.ajax({
-            url: "{{ route('save.polygon') }}",
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                name: name,
-                polygonCoordinates: polygonCoordinates
-            },
-            success: function (response) {
-                console.log(response.message);
-                loadPolygons();
+    const savePolygon = function () {
+        const name = $("#name").val();
 
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-
+        if (name !== "") {
+            if (polygonCoordinates.length > 0) {
+                $.ajax({
+                    url: "{{ route('save.polygon') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        name: name,
+                        polygonCoordinates: polygonCoordinates,
+                    },
+                    success: function (response) {
+                        console.log(response.message);
+                        loadPolygons();
+                        $("#name").val(""); // reset input
+                    },
+                    error: function (xhr) {
+                        console.error(xhr.responseText);
+                    },
+                });
+            } else {
+                alert("No polygon drawn");
             }
-        });
-    }
+        } else {
+            alert("Please enter a name for the polygon");
+        }
+    };
+
+    $("#saveButton").click(savePolygon);
+
+    const deletePolygon = function (name) {
+        if (selectedPolygon) {
+            $.ajax({
+                url: "{{ route('delete.polygon') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    name: name,
+                },
+                success: function (response) {
+                    console.log(response.message);
+                    loadPolygons();
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                },
+            });
+        } else {
+            alert("No polygon selected for deletion");
+        }
+    };
+
     const loadPolygons = function () {
         $.ajax({
             url: "{{ route('load.polygons') }}",
@@ -125,7 +164,7 @@
 
                     const loadedPolygon = new google.maps.Polygon({
                         paths: coordinates,
-                        strokeColor: '#FF0000',
+                        strokeColor: "#FF0000",
                         strokeOpacity: 0.8,
                         strokeWeight: 2,
                         fillColor: "#FF0000",
@@ -133,13 +172,24 @@
                         editable: true,
                         draggable: true,
                     });
+                    loadedPolygon.name = polygon.name;
                     loadedPolygon.setMap(map);
+
+                    google.maps.event.addListener(loadedPolygon, "click", function () {
+                        selectedPolygon = loadedPolygon;
+                        populateFormFields(selectedPolygon);
+                    });
                 });
             },
             error: function (xhr) {
                 console.error(xhr.responseText);
             },
         });
+    };
+
+    const populateFormFields = function (polygon) {
+        const polygonNameInput = document.getElementById("name");
+        polygonNameInput.value = polygon.name;
     };
 
 </script>

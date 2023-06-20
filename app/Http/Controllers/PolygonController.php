@@ -33,6 +33,15 @@ class PolygonController extends Controller
         return PolygonResource::collection($polygons);
     }
 
+    public function deletePolygon(Request $request): JsonResponse
+    {
+        $name = $request->input('name');
+
+        Polygon::deletePolygonByName($name);
+
+        return response()->json(['message' => 'Polygon deleted successfully']);
+    }
+
 
     public function isPointInPolygon(Request $request): JsonResponse
     {

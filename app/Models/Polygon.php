@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Polygon extends Model
 {
@@ -21,5 +22,10 @@ class Polygon extends Model
     public function setVerticesAttribute($value): void
     {
         $this->attributes['vertices'] = json_encode($value);
+    }
+
+    public static function deletePolygonByName($name): int
+    {
+        return DB::table('polygons',)->where('name', $name)->delete();
     }
 }
