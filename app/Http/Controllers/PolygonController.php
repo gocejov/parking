@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePolygonRequest;
 use App\Http\Resources\PolygonResource;
+use App\Models\Zone;
 use App\Services\PolygonService;
 use Illuminate\Http\Request;
 use App\Models\Polygon;
@@ -23,7 +24,9 @@ class PolygonController extends Controller
 
     public function showMap(): View
     {
-        return view('pages.maps');
+        $zones = Zone::all();
+
+        return view('pages.maps', ['zones' => $zones]);
     }
 
     public function loadPolygons(): AnonymousResourceCollection
@@ -56,8 +59,10 @@ class PolygonController extends Controller
     public function storePolygon(StorePolygonRequest $request): JsonResponse
     {
         $name = $request->input('name');
+        $zoneId = $request->input('zone');
         $polygonCoordinates = $request->input('polygonCoordinates');
-        $this->polygonService->createPolygon($name, $polygonCoordinates);
+        $zone = Zone::findOrFail($zoneId);
+        $this->polygonService->createPolygon($name, $polygonCoordinates, $zone);
 
         return response()->json(['message' => 'Polygon saved successfully']);
     }

@@ -17,15 +17,24 @@
 <div id="map"></div>
 
 <form id="polygonForm">
-    <label for="name">Polygon Name:</label>
+    <label for="name">Parking Name:</label>
     <input type="text" id="name" name="name" required>
+
+    <label for="zone"> Zone: </label>
+    <select id="zone" name="zone" required>
+        <option value="">Select a zone</option>
+        @foreach ($zones as $zone)
+            <option value="{{ $zone->id }}">{{$zone->name}}</option>
+        @endforeach
+    </select>
+
     <button type="button" id="saveButton">Save</button>
     <button type="button" id="deleteButton">Delete</button>
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=&libraries=drawing&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=drawing&callback=initMap"></script>
 
 <script>
 
@@ -98,8 +107,9 @@
 
     const savePolygon = function () {
         const name = $("#name").val();
+        const zone = $("#zone").val();
 
-        if (name !== "") {
+        if (name !== "" && zone !== "") {
             if (polygonCoordinates.length > 0) {
                 $.ajax({
                     url: "{{ route('save.polygon') }}",
@@ -108,11 +118,13 @@
                         _token: "{{ csrf_token() }}",
                         name: name,
                         polygonCoordinates: polygonCoordinates,
+                        zone: zone,
                     },
                     success: function (response) {
                         console.log(response.message);
                         loadPolygons();
                         $("#name").val(""); // reset input
+                        $("#zone").val(""); // reset zone select
                     },
                     error: function (xhr) {
                         console.error(xhr.responseText);
@@ -122,7 +134,7 @@
                 alert("No polygon drawn");
             }
         } else {
-            alert("Please enter a name for the polygon");
+            alert("Please enter a name and select a zone for the polygon");
         }
     };
 

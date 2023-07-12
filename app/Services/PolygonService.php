@@ -3,16 +3,19 @@
 namespace App\Services;
 
 use App\Models\Polygon;
+use App\Models\Zone;
 
 class PolygonService
 {
-    public function createPolygon(string $name, array $polygonCoordinates): Polygon
+    public function createPolygon(string $name, array $polygonCoordinates, Zone $zone): Polygon
     {
         return Polygon::create([
             'name' => $name,
-            'vertices' => json_encode($polygonCoordinates)
+            'vertices' => json_encode($polygonCoordinates),
+            'zone_id' => $zone->id,
         ]);
     }
+
 
     public function checkPointInPolygon(array $point, $polygon): bool
     {

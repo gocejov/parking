@@ -10,7 +10,7 @@ class Polygon extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'vertices'];
+    protected $fillable = ['name', 'vertices', 'zone_id'];
 
     // Deserialize the vertices attribute from a JSON string to an array when the model is retrieved from the DB
     public function getVerticesAttribute($value)
@@ -27,5 +27,10 @@ class Polygon extends Model
     public static function deletePolygonByName($name): int
     {
         return DB::table('polygons',)->where('name', $name)->delete();
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
     }
 }

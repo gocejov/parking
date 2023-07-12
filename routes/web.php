@@ -50,7 +50,7 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
 // Polygon
-Route::get('/map', [PolygonController::class, 'showMap'])->name('map');
+Route::get('/maps', [PolygonController::class, 'showMap'])->name('maps');
 Route::get('/load-polygons', [PolygonController::class, 'loadPolygons'])->name('load.polygons');
 Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
 Route::post('/delete-polygon', [PolygonController::class, 'deletePolygon'])->name('delete.polygon');
