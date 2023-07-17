@@ -12,7 +12,7 @@ class Tariff extends Model
     protected $fillable = ['zone_id', 'price', 'time_limit'];
 
 
-    public function zones()
+    public function zone()
     {
         return $this->belongsTo(Zone::class);
     }

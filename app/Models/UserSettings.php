@@ -10,15 +10,31 @@ class UserSettings extends Model
 {
     use HasFactory;
     protected $fillable = [
+
         'license_plate',
         'default_park_time',
         'phone_number',
-        'location',
+        'vehicle_make',
+        'vehicle_model',
+        'phone_number'
     ];
 
-    public function user():BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
+    public function updateCurrentUserZone(int $newZoneId): void
+    {
+        if ($this->zone_id !== $newZoneId) {
+            $newZone = Zone::with('tariffs')->findOrFail($newZoneId);
+            $this->zone()->associate($newZone);
+            $this->save();
+        }
+    }
 }

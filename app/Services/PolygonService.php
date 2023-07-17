@@ -38,12 +38,12 @@ class PolygonService
         return $oddNodes;
     }
 
-    public function isPointInPolygon(array $point): bool
+    public function isPointInPolygon(array $point): Mixed
     {
         $polygons = Polygon::all();
         foreach ($polygons as $polygon) {
             if ($this->checkPointInPolygon($point, $polygon->vertices)) {
-                return true;
+                return $polygon;
             }
         }
         return false;

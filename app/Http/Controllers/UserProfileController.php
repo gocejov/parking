@@ -46,10 +46,17 @@ class UserProfileController extends Controller
             'email' => $attributes['email'],
             'address' => $attributes['address'],
             'city' => $attributes['city'],
-            'country' => $attributes['country'],
-            'postal' => $attributes['postal'],
-            'about' => $attributes['about']
+            'phone_number' => $attributes['phone_number'],
         ]);
+
+        $userSettings = auth()->user()->settings()->firstOrNew();
+        $userSettings->license_plate = $attributes['license_plate'];
+        $userSettings->default_park_time = $attributes['default_park_time'];
+        $userSettings->phone_number = $attributes['phone_number'];
+        $userSettings->vehicle_make = $attributes['vehicle_make'];
+        $userSettings->vehicle_model = $attributes['vehicle_model'];
+        $userSettings->save();
     }
+
 
 }

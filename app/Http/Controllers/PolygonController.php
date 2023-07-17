@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePolygonRequest;
 use App\Http\Resources\PolygonResource;
+use App\Models\UserSettings;
 use App\Models\Zone;
 use App\Services\PolygonService;
 use Illuminate\Http\Request;
 use App\Models\Polygon;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Illuminate\Contracts\View\View;
 
@@ -46,15 +48,28 @@ class PolygonController extends Controller
     }
 
 
-    public function isPointInPolygon(Request $request): JsonResponse
+    public function checkPointsAndGetUserWithZone(Request $request): JsonResponse
     {
         $point = ['x' => $request->input('x'), 'y' => $request->input('y')];
 
-        if ($this->polygonService->isPointInPolygon($point)) {
-            return response()->json(['result' => true]);
+        if ($polygon = $this->polygonService->isPointInPolygon($point)) {
+            $loggedUser = Auth::user();
+            $userData = UserSettings::where('user_id', $loggedUser->id)
+                ->with('user', 'zone', 'zone.tariffs')
+                ->first();
+
+            $newZoneId = $polygon->zone_id;
+            $userData->updateCurrentUserZone($newZoneId);
+
+            return response()->json([
+                'result' => true,
+                'userData' => $userData,
+            ]);
+        } else {
+            return response()->json(['result' => false]);
         }
-        return response()->json(['result' => false]);
     }
+
 
     public function storePolygon(StorePolygonRequest $request): JsonResponse
     {

@@ -9,7 +9,7 @@ class Zone extends Model
 {
     use HasFactory;
 
-    public function tarrifs()
+    public function tariffs()
     {
         return $this->hasMany(Tariff::class);
     }

@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/profile', [UserProfileController::class, 'apiUpdate']);
 
     // Polygon Routes
-    Route::post('/check-points', [PolygonController::class, 'isPointInPolygon']);
+    Route::post('/check-points', [PolygonController::class, 'checkPointsAndGetUserWithZone']);
     Route::post('/save-polygon', [PolygonController::class, 'storePolygon']);
 
 
