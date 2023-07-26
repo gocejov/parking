@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -25,12 +26,7 @@ class HomeController extends Controller
      */
     public function index(Request $request): Mixed
     {
-        $user = auth()->user();
-        // $userId = auth()->user()->id;
-        $userId = $user->id;
-
-        $userSettings = UserSettings::where('user_id', $userId)->get();
-
+        $userSettings = UserSettings::where('user_id', Auth::user()->id)->with('zone')->get();
         if ($request->expectsJson()) {
             return response()->json([
                 'userSettings' => $userSettings

@@ -5,8 +5,8 @@
            aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
            target="_blank">
-            <img src="{{asset('./img/logo-ct-dark.png')}}" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold">Argon Dashboard 2 Laravel</span>
+            <img src="{{asset('./img/logos/parking_logo.png')}}" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold">The Parking App</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -22,14 +22,15 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item mt-3 d-flex align-items-center">
-                <div class="ps-4">
-                    <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                </div>
-                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Laravel Examples</h6>
-            </li>
+            {{--            <li class="nav-item mt-3 d-flex align-items-center">--}}
+            {{--                <div class="ps-4">--}}
+            {{--                    <i class="fab fa-laravel" style="color: #f4645f;"></i>--}}
+            {{--                </div>--}}
+            {{--                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Laravel Examples</h6>--}}
+            {{--            </li>--}}
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}"
+                   href="{{ route('profile') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -116,21 +117,21 @@
             </li>
         </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
-        <div class="card card-plain shadow-none" id="sidenavCard">
-            <img class="w-50 mx-auto" src="{{asset('/img/illustrations/icon-documentation-warning.svg')}}"
-                 alt="sidebar_illustration">
-            <div class="card-body text-center p-3 w-100 pt-0">
-                <div class="docs-info">
-                    <h6 class="mb-0">Need help?</h6>
-                    <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-                </div>
-            </div>
-        </div>
-        <a href="{{asset('/docs/bootstrap/overview/argon-dashboard/index.html')}}" target="_blank"
-           class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-        <a class="btn btn-primary btn-sm mb-0 w-100"
-           href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank" type="button">Upgrade
-            to PRO</a>
-    </div>
+    {{--    <div class="sidenav-footer mx-3 ">--}}
+    {{--        <div class="card card-plain shadow-none" id="sidenavCard">--}}
+    {{--            <img class="w-50 mx-auto" src="{{asset('/img/illustrations/icon-documentation-warning.svg')}}"--}}
+    {{--                 alt="sidebar_illustration">--}}
+    {{--            <div class="card-body text-center p-3 w-100 pt-0">--}}
+    {{--                <div class="docs-info">--}}
+    {{--                    <h6 class="mb-0">Need help?</h6>--}}
+    {{--                    <p class="text-xs font-weight-bold mb-0">Please check our docs</p>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--        <a href="{{asset('/docs/bootstrap/overview/argon-dashboard/index.html')}}" target="_blank"--}}
+    {{--           class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>--}}
+    {{--        <a class="btn btn-primary btn-sm mb-0 w-100"--}}
+    {{--           href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank" type="button">Upgrade--}}
+    {{--            to PRO</a>--}}
+    {{--    </div>--}}
 </aside>

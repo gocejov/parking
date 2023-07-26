@@ -497,28 +497,28 @@ function navbarBlurOnScroll(id) {
                 moving_div.style.transition = '.5s ease';
                 item.onmouseover = function (event) {
                     var target = getEventTarget(event);
-    var li = target.closest('li'); // get reference
-    if (li) {
-      var nodes = Array.from(li.closest('ul').children); // get array
-      var index = nodes.indexOf(li) + 1;
-      item.querySelector('li:nth-child(' + index + ') .nav-link').onclick = function () {
-        moving_div = item.querySelector('.moving-tab');
-        var sum = 0;
-        if (item.classList.contains('flex-column')) {
-          for (var j = 1; j <= nodes.indexOf(li); j++) {
-            sum += item.querySelector('li:nth-child(' + j + ')').offsetHeight;
+                    var li = target.closest('li'); // get reference
+                    if (li) {
+                        var nodes = Array.from(li.closest('ul').children); // get array
+                        var index = nodes.indexOf(li) + 1;
+                        item.querySelector('li:nth-child(' + index + ') .nav-link').onclick = function () {
+                            moving_div = item.querySelector('.moving-tab');
+                            var sum = 0;
+                            if (item.classList.contains('flex-column')) {
+                                for (var j = 1; j <= nodes.indexOf(li); j++) {
+                                    sum += item.querySelector('li:nth-child(' + j + ')').offsetHeight;
           }
           moving_div.style.transform = 'translate3d(0px,' + sum + 'px, 0px)';
-          moving_div.style.height = item.querySelector('li:nth-child(' + j + ')').offsetHeight;
-        } else {
-            for (var j = 1; j <= nodes.indexOf(li); j++) {
-                sum += item.querySelector('li:nth-child(' + j + ')').offsetWidth;
-            }
-            moving_div.style.transform = 'translate3d(' + sum + 'px, 0px, 0px)';
-            moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
-        }
-      };
-    }
+                                moving_div.style.height = item.querySelector('li:nth-child(' + j + ')').offsetHeight;
+                            } else {
+                                for (var j = 1; j <= nodes.indexOf(li); j++) {
+                                    sum += item.querySelector('li:nth-child(' + j + ')').offsetWidth;
+                                }
+                                moving_div.style.transform = 'translate3d(' + sum + 'px, 0px, 0px)';
+                                moving_div.style.width = item.querySelector('li:nth-child(' + index + ')').offsetWidth + 'px';
+                            }
+                        };
+                    }
                 };
             });
 
@@ -627,16 +627,16 @@ function navbarBlurOnScroll(id) {
                             hr[i].classList.add('light');
                         }
                     }
-    for (var i = 0; i < hr_card.length; i++) {
-      if (hr_card[i].classList.contains('dark')) {
-        hr_card[i].classList.remove('dark');
-        hr_card[i].classList.add('light');
-      }
-    }
-    for (var i = 0; i < text_btn.length; i++) {
-      if (text_btn[i].classList.contains('text-dark')) {
-        text_btn[i].classList.remove('text-dark');
-        text_btn[i].classList.add('text-white');
+                    for (var i = 0; i < hr_card.length; i++) {
+                        if (hr_card[i].classList.contains('dark')) {
+                            hr_card[i].classList.remove('dark');
+                            hr_card[i].classList.add('light');
+                        }
+                    }
+                    for (var i = 0; i < text_btn.length; i++) {
+                        if (text_btn[i].classList.contains('text-dark')) {
+                            text_btn[i].classList.remove('text-dark');
+                            text_btn[i].classList.add('text-white');
       }
     }
     for (var i = 0; i < text_span.length; i++) {
@@ -730,16 +730,16 @@ function navbarBlurOnScroll(id) {
     }
     for (var i = 0; i < text_span_white.length; i++) {
       if (text_span_white[i].classList.contains('text-white') && !text_span_white[i].closest('.sidenav') && !text_span_white[i].closest('.card.bg-gradient-dark')) {
-        text_span_white[i].classList.remove('text-white');
-        text_span_white[i].classList.add('text-dark');
+          text_span_white[i].classList.remove('text-white');
+          text_span_white[i].classList.add('text-dark');
       }
     }
-    for (var i = 0; i < text_strong_white.length; i++) {
-      if (text_strong_white[i].classList.contains('text-white')) {
-        text_strong_white[i].classList.remove('text-white');
-          text_strong_white[i].classList.add('text-dark');
-      }
-    }
+                    for (var i = 0; i < text_strong_white.length; i++) {
+                        if (text_strong_white[i].classList.contains('text-white')) {
+                            text_strong_white[i].classList.remove('text-white');
+                            text_strong_white[i].classList.add('text-dark');
+                        }
+                    }
                     for (var i = 0; i < secondary.length; i++) {
                         if (secondary[i].classList.contains('text-white')) {
                             secondary[i].classList.remove('text-white');
@@ -2901,16 +2901,16 @@ function navbarBlurOnScroll(id) {
                 /** Used to compose bitmasks for cloning. */
                 var CLONE_DEEP_FLAG = 1,
                     CLONE_FLAT_FLAG = 2,
-      CLONE_SYMBOLS_FLAG = 4;
+                    CLONE_SYMBOLS_FLAG = 4;
 
-  /** Used to compose bitmasks for value comparisons. */
-  var COMPARE_PARTIAL_FLAG = 1,
-      COMPARE_UNORDERED_FLAG = 2;
+                /** Used to compose bitmasks for value comparisons. */
+                var COMPARE_PARTIAL_FLAG = 1,
+                    COMPARE_UNORDERED_FLAG = 2;
 
-  /** Used to compose bitmasks for function metadata. */
-  var WRAP_BIND_FLAG = 1,
-      WRAP_BIND_KEY_FLAG = 2,
-      WRAP_CURRY_BOUND_FLAG = 4,
+                /** Used to compose bitmasks for function metadata. */
+                var WRAP_BIND_FLAG = 1,
+                    WRAP_BIND_KEY_FLAG = 2,
+                    WRAP_CURRY_BOUND_FLAG = 4,
       WRAP_CURRY_FLAG = 8,
       WRAP_CURRY_RIGHT_FLAG = 16,
       WRAP_PARTIAL_FLAG = 32,
