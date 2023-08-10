@@ -70,6 +70,7 @@ class PolygonController extends Controller
         }
     }
 
+    // podeli settings(kola, tel i slicno) i parkinzi,park history koga ke plati da se cuva data
 
     public function storePolygon(StorePolygonRequest $request): JsonResponse
     {

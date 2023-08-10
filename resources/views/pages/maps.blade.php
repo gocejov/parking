@@ -34,7 +34,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=drawing&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=&libraries=drawing&callback=initMap"></script>
 
 <script>
 

@@ -110,47 +110,47 @@
                                 </div>
                             </div>
                             <hr class="horizontal dark">
-                            <p class="text-uppercase text-sm">Parking Information</p>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="vehicle_make" class="form-control-label">Vehicle Make</label>
-                                        <input class="form-control" type="text" name="vehicle_make"
-                                               value="{{ old('vehicle_make', auth()->user()->settings->first()->vehicle_make) }}">
+                            <p class="text-uppercase text-sm">Vehicle Information</p>
+                            {{--                            <div class="row">--}}
+                            {{--                                @foreach(auth()->user()->vehicles as $vehicle)--}}
+                            {{--                                    <div class="col-md-4">--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <label for="vehicle_make" class="form-control-label">Vehicle Make</label>--}}
+                            {{--                                            <input class="form-control" type="text" name="vehicle_make"--}}
+                            {{--                                                   value="{{ old('vehicle_make', $vehicle->vehicle_make) }}">--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
 
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="vehicle_model" class="form-control-label">Vehicle Model</label>
-                                        <input class="form-control" type="text" name="license_plate"
-                                               value="{{ old('license_plate', auth()->user()->settings->first()->license_plate) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="license_plate" class="form-control-label">Vehicle License
-                                            Plate</label>
-                                        <input class="form-control" type="text" name="license_plate"
-                                               value="{{ old('license_plate', auth()->user()->settings->first()->license_plate) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="license_plate" class="form-control-label">Default Park Time For
-                                            POC</label>
-                                        <input class="form-control" type="text" name="default_park_time"
-                                               value="{{ old('default_park_time', auth()->user()->settings->first()->default_park_time) }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="phone_number" class="form-control-label">Telephone Number</label>
-                                        <input class="form-control" type="text" name="phone_number"
-                                               value="{{ old('phone_number', auth()->user()->settings->first()->phone_number) }}">
-                                    </div>
-                                </div>
-                            </div>
+                            {{--                                    <div class="col-md-4">--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <label for="vehicle_model" class="form-control-label">Vehicle Model</label>--}}
+                            {{--                                            <input class="form-control" type="text" name="license_plate"--}}
+                            {{--                                                   value="{{ old('vehicle_model', $vehicle->vehicle_model) }}">--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="col-md-4">--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <label for="license_plate" class="form-control-label">License Plate</label>--}}
+                            {{--                                            <input class="form-control" type="text" name="license_plate"--}}
+                            {{--                                                   value="{{ old('license_plate', $vehicle->license_plate) }}">--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="col-md-4">--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <label for="default_park_time" class="form-control-label">Phone number for payment</label>--}}
+                            {{--                                            <input class="form-control" type="text" name="phone_number"--}}
+                            {{--                                                   value="{{ old('default_park_time', $vehicle->phone_number) }}">--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div class="col-md-4">--}}
+                            {{--                                        <div class="form-group">--}}
+                            {{--                                            <label for="default_park_time" class="form-control-label">Default Park Time For POC</label>--}}
+                            {{--                                            <input class="form-control" type="text" name="default_park_time"--}}
+                            {{--                                                   value="{{ old('default_park_time', $vehicle->default_park_time) }}">--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endforeach--}}
+                            {{--                            </div>--}}
                         </div>
                     </form>
                 </div>

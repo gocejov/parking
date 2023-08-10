@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserProfileRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
 {
@@ -37,25 +35,9 @@ class UserProfileController extends Controller
      */
     private function updateUserProfile(UpdateUserProfileRequest $request): void
     {
-        $attributes = $request->validated();
+        $user = auth()->user();
 
-        auth()->user()->update([
-            'username' => $attributes['username'],
-            'firstname' => $attributes['firstname'],
-            'lastname' => $attributes['lastname'],
-            'email' => $attributes['email'],
-            'address' => $attributes['address'],
-            'city' => $attributes['city'],
-            'phone_number' => $attributes['phone_number'],
-        ]);
-
-        $userSettings = auth()->user()->settings()->firstOrNew();
-        $userSettings->license_plate = $attributes['license_plate'];
-        $userSettings->default_park_time = $attributes['default_park_time'];
-        $userSettings->phone_number = $attributes['phone_number'];
-        $userSettings->vehicle_make = $attributes['vehicle_make'];
-        $userSettings->vehicle_model = $attributes['vehicle_model'];
-        $userSettings->save();
+        $user->update($request->validated());
     }
 
 

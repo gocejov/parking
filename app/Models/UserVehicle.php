@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserSettings extends Model
+class UserVehicle extends Model
 {
     use HasFactory;
-    protected $fillable = [
 
+    protected $fillable = [
         'license_plate',
         'default_park_time',
         'phone_number',
         'vehicle_make',
         'vehicle_model',
-        'phone_number'
     ];
 
     public function user(): BelongsTo

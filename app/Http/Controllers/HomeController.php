@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserSettings;
+use App\Models\UserVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -26,12 +27,12 @@ class HomeController extends Controller
      */
     public function index(Request $request): Mixed
     {
-        $userSettings = UserSettings::where('user_id', Auth::user()->id)->with('zone')->get();
+        $userVehicles = UserVehicle::where('user_id', Auth::user()->id)->with('zone')->get();
         if ($request->expectsJson()) {
             return response()->json([
-                'userSettings' => $userSettings
+                'userVehicles' => $userVehicles
             ]);
         }
-        return view('pages.dashboard', ['userSettings' => $userSettings]);
+        return view('pages.dashboard', ['userVehicles' => $userVehicles]);
     }
 }

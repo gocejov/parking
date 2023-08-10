@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PolygonController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\UserVehicleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -25,18 +26,16 @@ use App\Http\Controllers\ChangePassword;
 
 
 Route::middleware('auth')->group(function () {
-
-
     Route::get('/user/settings/create', [UserSettingsController::class, 'create'])->name('settings.create');
     Route::post('/user/settings', [UserSettingsController::class, 'store'])->name('settings.store');
 
 
-    Route::delete('/user/settings/{settings}',[UserSettingsController::class, 'destroy'])->name('settings.destroy');
+    Route::delete('/user/settings/{settings}', [UserSettingsController::class, 'destroy'])->name('settings.destroy');
 
 });
 
 
-    // Theme generated routes
+// Theme generated routes
 Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
@@ -59,6 +58,8 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+Route::post('/save-vehicle', [UserVehicleController::class, 'saveVehicle'])->name('vehicle.save');
+Route::delete('/delete-vehicle/', [UserVehicleController::class, 'deleteVehicle'])->name('vehicle.delete');
 
 
 Route::group(['middleware' => 'auth'], function () {
