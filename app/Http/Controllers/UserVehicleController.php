@@ -6,11 +6,30 @@ use App\Http\Requests\AddUserVehicleRequest;
 use App\Models\UserVehicle;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class UserVehicleController extends Controller
 {
-    public function saveVehicle(AddUserVehicleRequest $request): JsonResponse
+
+    public function createVehicle()
+    {
+        return view('pages.create-vehicle');
+    }
+
+    public function editProfile($vehicleId)
+    {
+        $user = auth()->user();
+        $vehicle = $user->vehicles->find($vehicleId);
+
+        if (!$vehicle) {
+            return redirect()->back();
+        }
+
+        return view('pages.edit-vehicle')->with(['user' => $user, 'vehicle' => $vehicle]);
+    }
+
+    public function saveVehicle(AddUserVehicleRequest $request): RedirectResponse
     {
         $user = auth()->user();
         $vehicleId = $request->input('vehicle_id'); // If available for update
@@ -23,30 +42,32 @@ class UserVehicleController extends Controller
         ];
 
         if ($vehicleId) {
+            // Update existing vehicle
             $vehicle = $user->vehicles->find($vehicleId);
             if ($vehicle) {
                 $vehicle->update($vehicleData);
-                return response()->json(['message' => 'Vehicle updated successfully']);
+                return redirect()->to('dashboard')->with(['message' => 'Vehicle info updated !'], 200);
             }
-            return response()->json(['message' => 'Vehicle not found for update'], 404);
+            return redirect()->back()->with(['message' => 'Vehicle not found for update'], 404);
         } else {
+            // Create new vehicle
             $vehicle = new UserVehicle($vehicleData);
             $user->vehicles()->save($vehicle);
-            return response()->json(['message' => 'Vehicle added successfully']);
+            return redirect()->to('dashboard')->with(['message' => 'Vehicle added successfully']);
         }
     }
 
-    public function deleteVehicle(Request $request): JsonResponse
+
+    public function deleteVehicle($vehicleId): RedirectResponse
     {
-        $vehicleId = $request->input('vehicle_id');
+
         $vehicle = auth()->user()->vehicles->find($vehicleId);
 
         if ($vehicle) {
             $vehicle->delete();
-            return response()->json(['message' => 'Vehicle deleted successfully']);
+            return redirect()->back();
         }
-
-        return response()->json(['message' => 'No vehicle found to delete'], 404);
+        return redirect()->back()->with(['message' => 'No vehicle found to delete'], 200);
     }
 
 }

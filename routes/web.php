@@ -58,8 +58,11 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+// vehicle CRUD
 Route::post('/save-vehicle', [UserVehicleController::class, 'saveVehicle'])->name('vehicle.save');
-Route::delete('/delete-vehicle/', [UserVehicleController::class, 'deleteVehicle'])->name('vehicle.delete');
+Route::get('/edit-vehicle{vehicleId}', [UserVehicleController::class, 'editProfile'])->name('vehicle.edit');
+Route::get('/create-vehicle', [UserVehicleController::class, 'createVehicle'])->name('vehicle.create');
+Route::delete('/delete-vehicle{vehicleId}/', [UserVehicleController::class, 'deleteVehicle'])->name('vehicle.delete');
 
 
 Route::group(['middleware' => 'auth'], function () {

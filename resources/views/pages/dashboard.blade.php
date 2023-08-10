@@ -17,25 +17,26 @@
                     @csrf
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="card-body justify-content mb-3">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
+                            <a href="{{ route('vehicle.create') }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-plus"></i> Add Vehicle
-                            </button>
+                            </a>
+                        </div>
                         </div>
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
-                                        Phone number
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
-                                        License Plate Number
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
                                         Vehicle Make
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
                                         Vehicle Model
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
+                                        License Plate
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
+                                        Phone number
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-12 font-weight-bold">
                                         Park Time
@@ -52,32 +53,34 @@
                                 @foreach(auth()->user()->vehicles as $vehicle)
                                     <tr>
                                         <td class="align-middle text-center text-sm">
+                                            <p class="text-xs font-weight-bold mb-0">{{$vehicle->vehicle_make}}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-xs font-weight-bold mb-0">{{$vehicle->vehicle_model}}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-xs font-weight-bold mb-0">{{$vehicle->license_plate}}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
                                             <p class="text-xs font-weight-bold mb-0">{{$vehicle->phone_number}}</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="text-xs font-weight-bold mb-0">{{$vehicle->license_plate}}</span>
+                                            <p class="text-xs font-weight-bold mb-0">{{$vehicle->default_park_time}}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-xs font-weight-bold mb-0">{{$vehicle->vehicle_make}}</span>
+                                            <span
+                                                class="text-xs font-weight-bold mb-0">{{$vehicle->zone->name ?? "/"}}</span>
                                         </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-xs font-weight-bold mb-0">{{$vehicle->vehicle_model}}</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-xs font-weight-bold mb-0">{{$vehicle->default_park_time}}</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-xs font-weight-bold mb-0">{{$vehicle->zone->name}}</span>
-                                        </td>
-
                                         <td class="align-middle text-center">
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-icon btn-warning btn-sm me-2"
-                                                        onclick="openEditModal({{ $vehicle->id }})">
+                                                <a href="{{ route('vehicle.edit', ['vehicleId' => $vehicle->id]) }}"
+                                                   class="btn btn-icon btn-warning btn-sm me-2">
                                                     <i class="fas fa-edit"></i>
-                                                </button>
-                                                <form action="{{ route('vehicle.delete') }}" method="POST"
-                                                      onsubmit="return confirm('Are you sure you want to delete this vehicle?');">
+                                                </a>
+                                                <form
+                                                    action="{{ route('vehicle.delete', ['vehicleId' => $vehicle->id]) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this vehicle?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="vehicle_id" value="{{ $vehicle->id }}">
@@ -88,107 +91,9 @@
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal_{{ $vehicle->id }}" tabindex="-1"
-                                         role="dialog"
-                                         aria-labelledby="editModalLabel_{{ $vehicle->id }}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editModalLabel_{{ $vehicle->id }}">Edit
-                                                        Vehicle</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="editForm_{{ $vehicle->id }}">
-                                                        <div class="form-group">
-                                                            <label for="license_plate">License Plate</label>
-                                                            <input type="text" class="form-control" id="license_plate"
-                                                                   name="license_plate"
-                                                                   value="{{ $vehicle->license_plate }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="default_park_time">Default Park Time</label>
-                                                            <input type="text" class="form-control"
-                                                                   id="default_park_time" name="default_park_time"
-                                                                   value="{{ $vehicle->default_park_time }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="phone_number">Phone Number</label>
-                                                            <input type="text" class="form-control" id="phone_number"
-                                                                   name="phone_number"
-                                                                   value="{{ $vehicle->phone_number }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="vehicle_make">Vehicle Make</label>
-                                                            <input type="text" class="form-control" id="vehicle_make"
-                                                                   name="vehicle_make"
-                                                                   value="{{ $vehicle->vehicle_make }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="vehicle_model">Vehicle Model</label>
-                                                            <input type="text" class="form-control" id="vehicle_model"
-                                                                   name="vehicle_model"
-                                                                   value="{{ $vehicle->vehicle_model }}">
-                                                        </div>
-                                                    </form>
-                                                    <div class="alert alert-success" role="alert" style="display: none;"
-                                                         id="editSuccessAlert">
-                                                        Changes were saved successfully.
-                                                    </div>
-                                                    <div class="alert alert-danger" role="alert" style="display: none;"
-                                                         id="editErrorAlert">
-                                                        Changes could not be saved. Please try again.
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancel
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary"
-                                                            onclick="submitEditForm({{ $vehicle->id }})">Save Changes
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Delete Modal -->
-                                    <div class="modal fade" id="deleteModal_{{$vehicle->id}}" tabindex="-1"
-                                         role="dialog"
-                                         aria-labelledby="deleteModalLabel_{{$vehicle->id}}" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel_{{$vehicle->id}}">
-                                                        Confirm Deletion</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure you want to delete this vehicle?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancel
-                                                    </button>
-                                                    <a href="{{ route('vehicle.delete', ['vehicle_id' => $vehicle->id]) }}"
-                                                       class="btn btn-danger">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 @endforeach
-                                <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="createModalLabel" aria-hidden="true">
-                                    <!-- Create modal content goes here -->
-                                </div>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -668,42 +573,5 @@
                         },
                     },
                 });
-
-                function submitEditForm(vehicleId) {
-                    const form = $('#editForm_' + vehicleId);
-
-                    $.ajax({
-                        url: '{{ route('vehicle.save') }}',
-                        method: 'POST',
-                        data: form.serialize() + '&vehicle_id=' + vehicleId,
-                        headers: {
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                        },
-                        success: function () {
-                            // Handle success
-                            $('#editSuccessAlert').fadeIn();
-
-                            // Close modal after a brief delay
-                            setTimeout(function () {
-                                $('#editModal_' + vehicleId).modal('hide');
-                            }, 1500); // Adjust the delay time as needed
-                        },
-                        error: function (xhr, status, error) {
-                            // Handle error
-                            $('#editErrorAlert').modal('hide');
-
-                        }
-                    });
-                }
-
-                function openEditModal(vehicleId) {
-                    // Reset modal content before opening
-                    $('#editForm_' + vehicleId)[0].reset();
-                    $('#editSuccessAlert').hide();
-                    $('#editModal_' + vehicleId).modal('show');
-                }
-
-
-
             </script>
     @endpush
