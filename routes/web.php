@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PolygonController;
-use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\UserVehicleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -13,25 +13,20 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    // Admins routes
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/user/settings/create', [UserSettingsController::class, 'create'])->name('settings.create');
-    Route::post('/user/settings', [UserSettingsController::class, 'store'])->name('settings.store');
-
-
-    Route::delete('/user/settings/{settings}', [UserSettingsController::class, 'destroy'])->name('settings.destroy');
-
+    // Maps Crud
+    Route::get('/maps', [PolygonController::class, 'showMap'])->name('maps');
+    Route::get('/load-polygons', [PolygonController::class, 'loadPolygons'])->name('load.polygons');
+    Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
+    Route::post('/delete-polygon', [PolygonController::class, 'deletePolygon'])->name('delete.polygon');
+// Users Crud
+    Route::get('/user-management', [AdminController::class, 'userManagement'])->name('user.management');
+    Route::post('/save-user', [AdminController::class, 'saveUser'])->name('user.save');
+    Route::get('/edit-user/{user}', [AdminController::class, 'editUser'])->name('user.edit');
+    Route::get('/create-user', [AdminController::class, 'createUser'])->name('user.create');
+    Route::delete('/user-delete/{user}', [AdminController::class, 'deleteUser'])->name('user.delete');
 });
 
 
@@ -39,6 +34,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return redirect('/dashboard');
 })->middleware('auth');
+
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
@@ -48,11 +44,6 @@ Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('gues
 Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
-// Polygon
-Route::get('/maps', [PolygonController::class, 'showMap'])->name('maps');
-Route::get('/load-polygons', [PolygonController::class, 'loadPolygons'])->name('load.polygons');
-Route::post('/save-polygon', [PolygonController::class, 'storePolygon'])->name('save.polygon');
-Route::post('/delete-polygon', [PolygonController::class, 'deletePolygon'])->name('delete.polygon');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 

@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 
 class RegisterController extends Controller
@@ -43,6 +43,11 @@ class RegisterController extends Controller
             'password' => Hash::make($attributes['password']),
             'terms' => $attributes['terms'],
         ]);
+
+        // Assign default role
+        $defaultRole = Role::findOrCreate('user', 'web');
+        $user->assignRole($defaultRole);
+
         auth()->login($user);
 
         return redirect('/dashboard');
