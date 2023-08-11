@@ -16,7 +16,7 @@ class UserProfileController extends Controller
     {
         $this->updateUserProfile($request);
 
-        return back()->with('success', 'Profile successfully updated');
+        return back()->with('success', 'Profile successfully updated.');
     }
 
     public function apiUpdate(UpdateUserProfileRequest $request): JsonResponse

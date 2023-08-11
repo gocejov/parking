@@ -46,14 +46,14 @@ class UserVehicleController extends Controller
             $vehicle = $user->vehicles->find($vehicleId);
             if ($vehicle) {
                 $vehicle->update($vehicleData);
-                return redirect()->to('dashboard')->with(['message' => 'Vehicle info updated !'], 200);
+                return back()->with('success', 'Vehicle info updated !');
             }
-            return redirect()->back()->with(['message' => 'Vehicle not found for update'], 404);
+            return back()->with('error', 'Vehicle not found for update');
         } else {
             // Create new vehicle
             $vehicle = new UserVehicle($vehicleData);
             $user->vehicles()->save($vehicle);
-            return redirect()->to('dashboard')->with(['message' => 'Vehicle added successfully']);
+            return back()->with('success', 'Vehicle added successfully');
         }
     }
 
@@ -67,7 +67,7 @@ class UserVehicleController extends Controller
             $vehicle->delete();
             return redirect()->back();
         }
-        return redirect()->back()->with(['message' => 'No vehicle found to delete'], 200);
+        return back()->with(['message' => 'No vehicle found to delete'], 200);
     }
 
 }
