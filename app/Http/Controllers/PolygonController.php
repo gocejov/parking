@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePolygonRequest;
 use App\Http\Resources\PolygonResource;
 use App\Models\UserSettings;
+use App\Models\UserVehicle;
 use App\Models\Zone;
 use App\Services\PolygonService;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class PolygonController extends Controller
 
         if ($polygon = $this->polygonService->isPointInPolygon($point)) {
             $loggedUser = Auth::user();
-            $userData = UserSettings::where('user_id', $loggedUser->id)
+            $userData = UserVehicle::where('user_id', $loggedUser->id)
                 ->with('user', 'zone', 'zone.tariffs')
                 ->first();
 
